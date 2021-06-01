@@ -1,17 +1,30 @@
 ---
  - name: Playbook to install package
+   hosts: all
+   pre_task :
+   become: true
+   tasks: 
+    - name: apt-get update
+      apt:
+        update_catch: yes 
+
+      when: ansible_distribution == "Ubuntu" 
+    - name: yum update
+      yum:
+         update_catch: yes
+      when: ansible_distribution == "CentOS" 
+        
+ - name: Playbook to install package
    hosts: ubuntu-server
    become: true
    tasks: 
     - name: Ansible apt install apache2
       apt:
-        name: apache2
+        name: 
+          - apache2
+          - htop
         state: present
 
-    - name: Ansible apt install htop
-      apt:
-        name: htop
-        state: present
       when: ansible_distribution == "Ubuntu" 
 
  - name: Playbook to install package
@@ -22,6 +35,7 @@
       yum:
         name: httpd
         state: present
+      when: ansible_distribution == "CentOS" 
    
     
   
