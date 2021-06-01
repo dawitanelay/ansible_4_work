@@ -8,6 +8,12 @@
         name: apache2
         state: present
 
+    - name: Ansible apt install htop
+      apt:
+        name: htop
+        state: present
+      when: ansible_distribution == "Ubuntu" 
+
  - name: Playbook to install package
    hosts: centos-server
    become: true
