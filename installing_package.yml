@@ -1,0 +1,24 @@
+---
+ - name: Playbook to install package
+   hosts: ubuntu-server
+   become: true
+   tasks: 
+    - name: Ansible apt install apache2
+      apt:
+        name: apache2
+        state: present
+
+ - name: Playbook to install package
+   hosts: centos-server
+   become: true
+   tasks: 
+    - name: Ansible yum install httpd
+      yum:
+        name: httpd
+        state: present
+   
+    
+  
+
+
+
