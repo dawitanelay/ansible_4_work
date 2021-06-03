@@ -1,0 +1,25 @@
+- name: start httpd 
+  service:
+    name: httpd
+    state: started 
+  when: ansible_distribution == "RedHat" 
+
+- name: start apache2
+  service:
+    name: apache2
+    state: started 
+  when: ansible_distribution == "Ubuntu"
+
+- name: change e-mail address of httpd 
+  lineinfile: 
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^ServerAdmin'
+        line: ServerAdmin dawit@gmial.com
+  when: ansible_distribution == "RedHat"
+  register: httpd 
+
+- name: restart httpd
+  service:
+   name: httpd
+   state: restarted
+  when: httpd.changed 

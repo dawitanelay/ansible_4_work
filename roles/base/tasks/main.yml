@@ -1,0 +1,5 @@
+- name: create dawit user
+  authorized_key:
+        user: dawit
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEy6WPHdoyC0aKe40mmVL3Yt0ConRTTC0FWiacPl8hBs ansbile-dawit-laptop"
+    

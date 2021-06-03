@@ -12,7 +12,7 @@
     - name: yum update
       yum:
          update_cache: yes 
-      when: ansible_distribution == "CentOS" 
+      when: ansible_distribution == "RedHat" 
         
  - name: Playbook to install package
    hosts: ubuntu-server

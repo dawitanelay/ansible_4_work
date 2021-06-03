@@ -1,0 +1,4 @@
+- name: create dawit user
+  user:
+    name: daiwt
+    group: root 

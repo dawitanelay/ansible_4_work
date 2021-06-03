@@ -1,0 +1,15 @@
+---
+ - name: Playbook to install package
+   hosts: all
+   become: true
+   tasks: 
+    - name: apt-get update
+      apt:
+        update_cache: yes 
+
+      when: ansible_distribution == "Ubuntu" 
+      
+    - name: yum update
+      yum:
+         update_cache: yes 
+      when: ansible_distribution == "RedHat"  

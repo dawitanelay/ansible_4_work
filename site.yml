@@ -1,0 +1,17 @@
+- hosts: all
+  become: true
+  roles:
+    - base
+    - user
+
+- hosts: ubuntu-server
+  become: true
+  roles: 
+    - package
+    - service
+    - file-manage
+- hosts: terraform-server
+  become: true
+  roles: 
+    - package
+    - terraform-server
