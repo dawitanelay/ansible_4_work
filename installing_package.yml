@@ -1,17 +1,17 @@
 ---
  - name: Playbook to install package
    hosts: all
-   pre_task :
+   pre_tasks:
    become: true
    tasks: 
     - name: apt-get update
       apt:
-        update_catch: yes 
+        update_cache: yes 
 
       when: ansible_distribution == "Ubuntu" 
     - name: yum update
       yum:
-         update_catch: yes
+         update_cache: yes 
       when: ansible_distribution == "CentOS" 
         
  - name: Playbook to install package
@@ -19,11 +19,20 @@
    become: true
    tasks: 
     - name: Ansible apt install apache2
+      tags: apache,htop,copy
       apt:
         name: 
           - apache2
           - htop
         state: present
+    - name: copy default_site.html to ubuntu servers
+      tags:  apache,htop,copy
+      copy:
+         src: default_site.html
+         dest: /var/www/html/
+         owner:   root
+         group:   root
+         mode:    0644
 
       when: ansible_distribution == "Ubuntu" 
 
@@ -32,13 +41,45 @@
    become: true
    tasks: 
     - name: Ansible yum install httpd
+      tags: httpd 
       yum:
         name: httpd
-        state: present
-      when: ansible_distribution == "CentOS" 
+        state: present  
+      
+
+    - name: systemctl start httpd
+      tags: httpd
+      service:
+        name: httpd
+        state: stopped
+      
+
    
-    
+
+ - name: Installing terrafrom 
+   hosts: terraform-server 
+   become: true
+   tasks: 
+    - name: install unzip package
+      tags: terrafrom
+      apt:
+        name: unzip
+        state: present
+    - name: install terrafrom form http
+      tags: terrafrom
+      unarchive: 
+        src:  https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_freebsd_amd64.zip
+        dest: /usr/local/bin
+        remote_src: yes
+        mode:       0755
+        owner:      root
+        group:      root 
+      when: ansible_distribution == "Ubuntu"   
+
+ 
+       
   
+
 
 
 
