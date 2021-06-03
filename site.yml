@@ -14,4 +14,4 @@
   become: true
   roles: 
     - package
-    - terraform-server
+    - terraform-server 
