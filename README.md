@@ -17,4 +17,5 @@ ansbile_playbook_list
 - ansible all -m gather_facts                                             --- 4 getting facts 
 - ansible all -m gather_facts --limit 52.201.235.104                      --- 4 target one host 
 - ansible all -m apt -a update_cache=true                                 --- 2 run apt update on ubuntu os 
-- ansible all -m apt -a name=htop                                          --- 2 install top 
+- ansible all -m apt -a name=htop                                         --- 2 install top 
+- ansible-playbook --list-tags installing_package.yml                     ----2 list tags  
